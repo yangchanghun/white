@@ -1,0 +1,23 @@
+.recommendation {
+    padding: 20px;
+    background-color: #f5f5f5;
+  }
+  
+  .recommendation h2 {
+    margin-bottom: 20px;
+  }
+  
+  .recommendation-items {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .item {
+    width: 100px;
+    height: 100px;
+    background-color: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
