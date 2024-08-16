@@ -45,3 +45,24 @@ class ProductImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductImage
         fields = ('product', 'image')
+
+class ProductListSerializer(serializers.ModelSerializer):
+    images = serializers.SerializerMethodField()
+    price = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Product_Name
+        fields = ('id', 'name', 'images', 'price')
+
+    def get_images(self, obj):
+        # Product_Name에 연결된 모든 Product의 첫 번째 이미지를 가져옵니다.
+        products = obj.products.all()
+        images = ProductImage.objects.filter(product__in=products)
+        return ProductImageSerializer(images, many=True, context=self.context).data
+
+    def get_price(self, obj):
+        # Product_Name에 연결된 Product의 가격 중 가장 낮은 가격을 가져옵니다.
+        prices = obj.products.values_list('price', flat=True)
+        if prices:
+            return min(prices)
+        return None

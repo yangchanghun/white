@@ -1,6 +1,6 @@
 from rest_framework import generics
 from .models import Product,Like,Product_Name
-from .serializers import ProductSerializer,ProductDetailSerializer
+from .serializers import ProductSerializer,ProductDetailSerializer,ProductListSerializer
 from rest_framework.permissions import AllowAny
 from django.http import JsonResponse
 from django.db.models import Subquery, OuterRef, Count
@@ -9,20 +9,23 @@ from django.db.models import Subquery, OuterRef, Count
 
 class ProductListView(generics.ListAPIView):
     permission_classes = [AllowAny]
-    serializer_class = ProductSerializer
+    queryset = Product_Name.objects.all()
+    serializer_class = ProductListSerializer
+    # permission_classes = [AllowAny]
+    # serializer_class = ProductSerializer
 
-    def get_queryset(self):
-        # 각 Product_Name별로 좋아요 수가 가장 많은 Product를 가져옵니다.
-        subquery = Product.objects.filter(
-            name=OuterRef('name')
-        ).order_by('-likes_count', '-id').values('id')[:1]
+    # def get_queryset(self):
+    #     # 각 Product_Name별로 좋아요 수가 가장 많은 Product를 가져옵니다.
+    #     subquery = Product.objects.filter(
+    #         name=OuterRef('name')
+    #     ).order_by('-likes_count', '-id').values('id')[:1]
 
-        # Subquery를 이용해 각 Product_Name에 해당하는 대표 상품을 가져옵니다.
-        queryset = Product.objects.filter(
-            id__in=Subquery(subquery)
-        )
+    #     # Subquery를 이용해 각 Product_Name에 해당하는 대표 상품을 가져옵니다.
+    #     queryset = Product.objects.filter(
+    #         id__in=Subquery(subquery)
+    #     )
 
-        return queryset
+    #     return queryset
 
 
 
