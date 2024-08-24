@@ -1,0 +1,10 @@
+<!-- templates/image_list.html -->
+<h2>Uploaded Images</h2>
+<ul>
+    {% for image in images %}
+        <li>
+            <h3>{{ image.title }}</h3>
+            <img src="{{ image.image.url }}" alt="{{ image.title }}">
+        </li>
+    {% endfor %}
+</ul>

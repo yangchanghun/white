@@ -9,9 +9,10 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+from dotenv import load_dotenv
 from datetime import timedelta  # timedelta를 가져옵니다.
 from pathlib import Path
-
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 import os
 from pathlib import Path
@@ -48,7 +49,9 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'accounts',
     'rest_framework_simplejwt.token_blacklist',
-    'goods'
+    'goods',
+    'storages',
+    'test3'
 ]
 
 REST_FRAMEWORK = {
@@ -176,3 +179,22 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# AWS settings
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = 'white-shopping'
+AWS_S3_REGION_NAME = 'ap-northeast-2'  # 예를 들어, 'ap-northeast-2'
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com'
+# Static files (CSS, JavaScript, Images)
+# Static files (CSS, JavaScript, Images)
+# Static files (CSS, JavaScript, Images)
+# Static files (CSS, JavaScript, Images)
+AWS_STATIC_LOCATION = 'static'
+STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_STATIC_LOCATION}/'
+STATICFILES_STORAGE = 'test3.storage_backends.StaticStorage'
+
+# Media files (uploads)
+AWS_MEDIA_LOCATION = 'media'
+DEFAULT_FILE_STORAGE = 'test3.storage_backends.MediaStorage'
+MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_MEDIA_LOCATION}/'
