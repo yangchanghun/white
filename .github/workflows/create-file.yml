@@ -6,11 +6,11 @@ on:
       filename:
         description: 'File name to create'
         required: true
-        default: 'text.txt'
+        default: 'hey.txt'
       content:
         description: 'Content to write in the file'
         required: true
-        default: 'Hello, World!'
+        default: 'fuckyou'
 
 jobs:
   create-file:
