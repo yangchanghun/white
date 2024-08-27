@@ -21,8 +21,13 @@ jobs:
     - name: Sync and Deploy
       run: |
         ssh -o StrictHostKeyChecking=no ${{ secrets.USERNAME }}@${{ secrets.HOST }} "
-        cd /path/to/directory
-        git pull        
+        if [ ! -d \"/home/ubuntu/white\" ]; then
+          git clone https://github.com/your-username/your-repo.git /home/ubuntu/white
+        else
+          cd /home/ubuntu/white
+          git pull
+        fi
+        cd /home/ubuntu/white
         docker-compose down
         docker-compose up -d --build
         "
