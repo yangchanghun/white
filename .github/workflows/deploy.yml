@@ -1,5 +1,5 @@
 # .github/workflows/deploy.yml
-name: Deploy Django and Frontend to AWS EC2 with Git
+name: Deploy Django to AWS EC2 with Git
 
 on:
   push:
@@ -20,14 +20,14 @@ jobs:
 
     - name: Sync and Deploy
       run: |
-        ssh -o StrictHostKeyChecking=no ${{ secrets.USERNAME }}@${{ secrets.HOST }} "
-        if [ ! -d \"/home/ubuntu/white\" ]; then
-          git clone https://github.com/yangchanghun/white.git /home/ubuntu/white
+        ssh -o StrictHostKeyChecking=no ${{ secrets.USERNAME }}@${{ secrets.HOST }} '
+        if [ ! -d "/path/to/directory" ]; then
+          git clone https://github.com/yangchanghun/white.git /path/to/directory
         else
-          cd /home/ubuntu/white
+          cd /path/to/directory
           git pull
         fi
-        cd /home/ubuntu/white
+        docker-compose build
         docker-compose down
-        docker-compose up -d --build
-        "
+        docker-compose up -d
+        '
