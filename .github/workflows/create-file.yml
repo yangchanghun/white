@@ -14,7 +14,7 @@ on:
 
 jobs:
   create-file:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest #VM머신 이걸로 사용
     steps:
     - name: Setup SSH Keys
       uses: webfactory/ssh-agent@v0.9.0

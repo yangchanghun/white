@@ -1,0 +1,18 @@
+# docker-compose.yml
+version: '3'
+
+services:
+  backend:
+    build: ./be
+    command: gunicorn myproject.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - ./be:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - fe
+
+  frontend:
+    build: ./fe/my-app
+    ports:
+      - "3000:80"
