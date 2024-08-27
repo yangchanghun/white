@@ -20,14 +20,14 @@ jobs:
 
     - name: Sync and Deploy
       run: |
-        ssh -o StrictHostKeyChecking=no ${{ secrets.USERNAME }}@${{ secrets.HOST }} '
-        if [ ! -d "/path/to/directory" ]; then
-          git clone https://github.com/yangchanghun/white.git /path/to/directory
+        ssh -o StrictHostKeyChecking=no ${{ secrets.USERNAME }}@${{ secrets.HOST }} "
+        if [ ! -d \"/home/ubuntu/myproject\" ]; then
+          git clone https://github.com/yangchanghun/white.git /home/ubuntu/myproject
         else
-          cd /path/to/directory
+          cd /home/ubuntu/myproject
           git pull
         fi
-        docker-compose build
+        cd /home/ubuntu/myproject
         docker-compose down
-        docker-compose up -d
-        '
+        docker-compose up -d --build
+        "
