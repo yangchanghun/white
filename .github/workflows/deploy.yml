@@ -1,4 +1,5 @@
-name: Deploy Django and Frontend to AWS EC2 with Git
+# .github/workflows/deploy.yml
+name: Deploy Django to AWS EC2 with Git
 
 on:
   push:
@@ -12,21 +13,21 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Setup SSH
-      run: |
-        eval $(ssh-agent -s)
-        echo "${{ secrets.SSH_KEY }}" | tr -d '\r' | ssh-add -
+    - name: Setup SSH Keys
+      uses: webfactory/ssh-agent@v0.9.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_KEY }}
 
     - name: Sync and Deploy
       run: |
-        ssh -o StrictHostKeyChecking=no ${{ secrets.USERNAME }}@${{ secrets.HOST }} << 'EOF'
-        if [ ! -d "/home/ubuntu/myproject" ]; then
-          git clone https://github.com/yangchanghun/white.git /home/ubuntu/myproject
+        ssh -o StrictHostKeyChecking=no ${{ secrets.USERNAME }}@${{ secrets.HOST }} '
+        if [ ! -d "/path/to/directory" ]; then
+          git clone https://github.com/yangchanghun/white /path/to/directory
         else
-          cd /home/ubuntu/myproject
+          cd /path/to/directory
           git pull
         fi
-        cd /home/ubuntu/myproject
+        docker-compose build
         docker-compose down
-        docker-compose up -d --build
-        EOF
+        docker-compose up -d
+        '
