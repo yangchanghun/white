@@ -1,33 +1,11 @@
-# .github/workflows/deploy.yml
-name: Deploy Django to AWS EC2 with Git
+# docker-compose.yml
+version: '3'
 
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Setup SSH Keys
-      uses: webfactory/ssh-agent@v0.9.0
-      with:
-        ssh-private-key: ${{ secrets.SSH_KEY }}
-
-    - name: Sync and Deploy
-      run: |
-        ssh -o StrictHostKeyChecking=no ${{ secrets.USERNAME }}@${{ secrets.HOST }} '
-        if [ ! -d "/path/to/directory" ]; then
-          git clone https://github.com/your-username/your-repo.git /path/to/directory
-        else
-          cd /path/to/directory
-          git pull
-        fi
-        docker-compose build
-        docker-compose down
-        docker-compose up -d
-        '
+services:
+  web:
+    build: .
+    command: gunicorn myproject.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
