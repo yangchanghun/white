@@ -1,4 +1,3 @@
-# .github/workflows/deploy.yml
 name: Deploy Django to AWS EC2 with Git
 
 on:
@@ -21,13 +20,14 @@ jobs:
     - name: Sync and Deploy
       run: |
         ssh -o StrictHostKeyChecking=no ${{ secrets.USERNAME }}@${{ secrets.HOST }} '
-        if [ ! -d "/path/to/directory" ]; then
-          git clone https://github.com/yangchanghun/white /path/to/directory
+        if [ ! -d "/home/ubuntu/yourproject" ]; then
+          mkdir -p /home/ubuntu/yourproject
+          git clone https://github.com/yangchanghun/white /home/ubuntu/yourproject
         else
-          cd /path/to/directory
+          cd /home/ubuntu/yourproject
           git pull
         fi
-        docker-compose build
-        docker-compose down
-        docker-compose up -d
+        sudo /usr/local/bin/docker-compose build
+        sudo /usr/local/bin/docker-compose down
+        sudo /usr/local/bin/docker-compose up -d
         '
