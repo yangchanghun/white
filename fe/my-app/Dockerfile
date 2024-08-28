@@ -1,4 +1,4 @@
-# 1. Build stage
+# 1. Build stage: Node.js를 사용하여 애플리케이션을 빌드합니다.
 FROM node:20 as build
 
 # Set the working directory
@@ -16,7 +16,7 @@ COPY . .
 # Build the application (for production)
 RUN npm run build
 
-# 2. Production stage
+# 2. Production stage: Nginx를 사용하여 빌드된 파일을 서빙합니다.
 FROM nginx:stable-alpine
 
 # Copy built files from the build stage to Nginx public directory

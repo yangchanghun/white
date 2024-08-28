@@ -14,9 +14,5 @@ services:
   frontend:
     build:
       context: ./fe/my-app  # 프론트엔드 Dockerfile이 위치한 디렉토리
-      dockerfile: Dockerfile
-    command: npm start
-    volumes:
-      - ./fe/my-app:/app
     ports:
-      - "3000:3000"
+      - "80:80"  # Nginx는 80번 포트에서 서빙
