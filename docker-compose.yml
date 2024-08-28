@@ -3,20 +3,20 @@ version: '3'
 services:
   backend:
     build:
-      context: ./white/be  # 백엔드 Dockerfile이 위치한 디렉토리
-      dockerfile: Dockerfile  # Dockerfile 이름이 기본 값이면 생략 가능
+      context: ./be  # 백엔드 Dockerfile이 위치한 디렉토리
+      dockerfile: Dockerfile
     command: gunicorn myproject.wsgi:application --bind 0.0.0.0:8000
     volumes:
-      - ./white/be:/app
+      - ./be:/app
     ports:
       - "8000:8000"
 
   frontend:
     build:
-      context: ./white/fe/my-app  # 프론트엔드 Dockerfile이 위치한 디렉토리
-      dockerfile: Dockerfile  # Dockerfile 이름이 기본 값이면 생략 가능
+      context: ./fe/my-app  # 프론트엔드 Dockerfile이 위치한 디렉토리
+      dockerfile: Dockerfile
     command: npm start
     volumes:
-      - ./white/fe/my-app:/app
+      - ./fe/my-app:/app
     ports:
       - "3000:3000"
