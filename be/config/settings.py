@@ -31,7 +31,9 @@ SECRET_KEY = 'django-insecure-q+bui)0*e)#@23o$p_rceli#+c^s=_+&3+l%pe!!vk3%_pkf()
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# settings.py
+ALLOWED_HOSTS = ['3.35.149.98', 'localhost', '127.0.0.1']  # 여기에 서버의 공인 IP 주소를 추가하세요.
+
 
 AUTH_USER_MODEL= 'accounts.CustomUser'
 # Application definition
