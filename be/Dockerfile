@@ -15,6 +15,5 @@ RUN pip install -r requirements.txt
 # 프로젝트 코드 복사
 COPY . /app/
 
-# 애플리케이션 실
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "be.wsgi:application"]
-
+# 애플리케이션 실행
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "config.wsgi:application"]
