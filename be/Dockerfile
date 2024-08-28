@@ -16,4 +16,5 @@ RUN pip install -r requirements.txt
 COPY . /app/
 
 # 애플리케이션 실
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "white.wsgi:application"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "be.wsgi:application"]
+
