@@ -1,4 +1,4 @@
-name: Deploy Django to AWS EC2 with Git
+name: Deploy Django and React to AWS EC2 with Git
 
 on:
   push:
@@ -20,14 +20,13 @@ jobs:
     - name: Sync and Deploy
       run: |
         ssh -o StrictHostKeyChecking=no ${{ secrets.USERNAME }}@${{ secrets.HOST }} '
-        if [ ! -d "/home/ubuntu/yourproject" ]; then
-          mkdir -p /home/ubuntu/yourproject
-          git clone https://github.com/yangchanghun/white /home/ubuntu/yourproject
+        if [ ! -d "/home/ubuntu/white" ]; then
+          git clone https://github.com/yangchanghun/white /home/ubuntu/white
         else
-          cd /home/ubuntu/yourproject
+          cd /home/ubuntu/white
           git pull
         fi
-        sudo /usr/local/bin/docker-compose build
-        sudo /usr/local/bin/docker-compose down
-        sudo /usr/local/bin/docker-compose up -d
+        sudo /usr/local/bin/docker-compose -f /home/ubuntu/white/docker-compose.yml build
+        sudo /usr/local/bin/docker-compose -f /home/ubuntu/white/docker-compose.yml down
+        sudo /usr/local/bin/docker-compose -f /home/ubuntu/white/docker-compose.yml up -d
         '
