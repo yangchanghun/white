@@ -13,7 +13,7 @@ COPY requirements.txt /app/
 RUN pip install -r requirements.txt
 
 # 프로젝트 코드 복사
-COPY . /app/
+# COPY . /app/
 
 # 애플리케이션 실행
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "config.wsgi:application"]
+# CMD ["gunicorn", "--bind", "0.0.0.0:8000", "config.wsgi:application"]
