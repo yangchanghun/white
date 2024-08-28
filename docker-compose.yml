@@ -5,7 +5,7 @@ services:
     build:
       context: ./be  # 백엔드 Dockerfile이 위치한 디렉토리
       dockerfile: Dockerfile
-    command: gunicorn myproject.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn --bind 0.0.0.0:8000 config.wsgi:application
     volumes:
       - ./be:/app
     ports:
